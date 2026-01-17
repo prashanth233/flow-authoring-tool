@@ -52,6 +52,7 @@ Return ONLY a valid JSON object in this exact format (no markdown, no code block
 Rules:
 - For node numbers: Node 1 = first node (index 0), Node 2 = second node (index 1), etc.
 - Extract node IDs from the nodes list above based on the node number or label mentioned
+- For add_node: ALWAYS provide a nodeLabel. If the user doesn't specify a label (e.g., just says "add node" or "add a node"), create a default label like "Node X" where X is the next sequential number (e.g., if there are 2 nodes, use "Node 3"). NEVER ask the user for a label - always create one automatically.
 - For delete_node: If user says "delete the end call node", find the node with label containing "end call" and return its exact node ID
 - Match node labels intelligently - "end call node" should match a node labeled "End Call" or "end call" or similar
 - Return the EXACT node ID from the nodes list above, not a descriptive phrase
@@ -61,6 +62,7 @@ Rules:
 
 Example responses:
 - "Add a node called Hello" → {"type":"add_node","nodeLabel":"Hello"}
+- "Add a node" or "Add node" → {"type":"add_node","nodeLabel":"Node X"} (where X is next number, e.g., if 2 nodes exist, use "Node 3")
 - "Delete node 2" → {"type":"delete_node","nodeId":"<exact-node-id-from-list>"}
 - "Delete the end call node" → {"type":"delete_node","nodeId":"<id-of-node-with-label-containing-end-call>"}
 - "Connect node 1 to node 3" → {"type":"connect_nodes","sourceNodeId":"<exact-id-1>","targetNodeId":"<exact-id-3>"}
