@@ -121,7 +121,6 @@ IMPORTANT: Return ONLY the JSON object, nothing else.`;
     return validateAndResolveCommand(command, nodes);
   } catch (error: any) {
     // Silently fallback to enhanced mock parser on any error
-    // The mock parser works great and meets assignment requirements
     console.warn('Sarvam API error, using mock parser:', error.message);
     return getEnhancedMockResponse(userInput, nodes);
   }
